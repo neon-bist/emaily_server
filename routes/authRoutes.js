@@ -7,4 +7,6 @@ app.get('/google', passport.authenticate("google", {
 
 app.get('/google/callback', passport.authenticate("google"))
 
+app.get('/current_user', (req, res) => { res.json(req.user) })
+
 module.exports = app;
