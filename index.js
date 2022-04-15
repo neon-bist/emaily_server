@@ -3,12 +3,10 @@ const app = express();
 const mongoose = require("mongoose");
 const keys = require("./config/keys");
 
-require("./services/passport");
-
 //DB connection
 mongoose.connect(keys.mongodbURI);
 
-require("./models/User");
+require("./services/passport");
 
 app.use('/auth', require("./routes/authRoutes"));
 
