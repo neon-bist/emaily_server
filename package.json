@@ -1,11 +1,13 @@
 {
-  "name": "emaily",
+  "name": "emaily_server",
   "version": "1.0.0",
   "description": "Email Survey",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Neon Bist",
   "license": "ISC",
@@ -21,6 +23,7 @@
     "npm": "8.0.0"
   },
   "devDependencies": {
+    "concurrently": "^7.1.0",
     "nodemon": "^2.0.15"
   }
 }
