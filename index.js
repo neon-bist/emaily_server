@@ -20,15 +20,11 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use("/auth", require("./routes/authRoutes"));
-app.get("/api/current_user", (req, res) => {
-  res.json(req.user);
-});
-app.get("/api/logout", (req, res) => {
-  req.logout();
-  res.redirect("/");
-});
+app.use("/api", require("./routes/apiRoutes"));
 
 const port = process.env.PORT || 4000;
 

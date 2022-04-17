@@ -7,6 +7,6 @@ export const fetchUser = () => async (dispatch) => {
 };
 
 export const handleToken = (token) => async (dispatch) => {
-  const { data } = await axios.post("/api/stripe", { token });
+  const { data } = await axios.post("/api/stripe", token);
   dispatch({ type: FETCH_USER, payload: data });
 };
