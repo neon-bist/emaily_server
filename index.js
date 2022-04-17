@@ -22,6 +22,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/auth", require("./routes/authRoutes"));
+app.get("/api/current_user", (req, res) => {
+  res.json(req.user);
+});
+app.get("/api/logout", (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
 
 const port = process.env.PORT || 4000;
 

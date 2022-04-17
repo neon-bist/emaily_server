@@ -9,14 +9,8 @@ app.get(
   })
 );
 
-app.get("/google/callback", passport.authenticate("google"));
-
-app.get("/current_user", (req, res) => {
-  res.json(req.user);
-});
-app.get("/logout", (req, res) => {
-  req.logout();
-  res.send("Logged Out!");
-});
+app.get("/google/callback", passport.authenticate("google"), (req, res) =>
+  res.redirect("/surveys")
+);
 
 module.exports = app;
