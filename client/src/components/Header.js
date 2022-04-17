@@ -4,6 +4,7 @@ import Payments from "./Payments";
 
 const Header = (props) => {
   const renderContent = () => {
+    console.log(props.auth);
     switch (props.auth) {
       case null:
         return;
@@ -18,8 +19,9 @@ const Header = (props) => {
           <li key={1}>
             <Payments />
           </li>,
-          <li key={2}>
-            <a href="/api/logout">Logout</a>
+          <li key={2}>Credits: {props.auth.credits}</li>,
+          <li key={3}>
+            <a href="/api/logout">Logout({props.auth.displayName})</a>
           </li>,
         ];
     }
