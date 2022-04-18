@@ -3,6 +3,8 @@ const keys = require("../config");
 const stripe = require("stripe")(keys.stripeSecretKey);
 
 const requireLogin = require("../middlewares/requireLogin");
+const requireCredits = require("../middlewares/requireCredits");
+const Survey = require("../models/Survey");
 
 app.post("/stripe", requireLogin, async (req, res) => {
   const charge = await stripe.charges.create({
@@ -22,6 +24,18 @@ app.get("/current_user", (req, res) => {
 app.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");
+});
+
+app.post("/surveys", requireLogin, requireCredits, async (req, res) => {
+  const { title, subject, body, recipients } = req.body;
+  const survey = new Survey({
+    title,
+    subject,
+    body,
+    recipients: recipients.split(",").map((email) => ({ email: email.trim() })),
+    _user: req.user.id,
+    dateSent: Date.now(),
+  });
 });
 
 module.exports = app;
