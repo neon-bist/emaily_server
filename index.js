@@ -26,6 +26,16 @@ app.use(express.json());
 app.use("/auth", require("./routes/authRoutes"));
 app.use("/api", require("./routes/apiRoutes"));
 
+if (process.env.NODE_ENV === "production") {
+  //Serve static files .js/.css
+  const path = require("path");
+  app.use(express.static(path.resolve(__dirname, "client", "build")));
+
+  //Serve index.html in any route
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
