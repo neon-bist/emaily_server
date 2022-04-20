@@ -26,7 +26,8 @@ app.use(express.json());
 app.use("/auth", require("./routes/authRoutes"));
 app.use("/api", require("./routes/apiRoutes"));
 
-if (process.env.NODE_ENV === "production") {
+//TODO: Remove true if you dont want to serve static file in dev env
+if (true || process.env.NODE_ENV === "production") {
   //Serve static files .js/.css
   const path = require("path");
   app.use(express.static(path.resolve(__dirname, "client", "build")));
