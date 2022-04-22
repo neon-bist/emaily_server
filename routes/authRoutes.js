@@ -7,12 +7,13 @@ app.get("/google", (req, res, next) => {
     ? Buffer.from(JSON.stringify({ redirectTo })).toString("base64")
     : undefined;
 
-  console.log(redirectTo, state);
-  return passport.authenticate("google", {
+  const authenticator = passport.authenticate("google", {
     scope: ["profile", "email"],
     prompt: "select_account",
     state,
-  })(req, res, next);
+  });
+
+  return authenticator(req, res, next);
 });
 
 app.get(
