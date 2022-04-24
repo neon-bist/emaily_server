@@ -7,8 +7,14 @@ const EditItem = ({ context, editProduct, setEditMode }) => {
   const [it, sit] = useState(item);
 
   return (
-    <div className="background-cover">
-      <div className="edit-box">
+    <div
+      className="background-cover"
+      onClick={(e) => {
+        e.stopPropagation();
+        setEditMode(false);
+      }}
+    >
+      <div className="edit-box" onClick={(e) => e.stopPropagation()}>
         {Object.keys(cols).map((field, index) => (
           <div className="input-field col s6" key={index}>
             <div>
@@ -28,6 +34,7 @@ const EditItem = ({ context, editProduct, setEditMode }) => {
           </div>
         ))}
         <button
+          className="btn waves-effect waves-light"
           onClick={() => {
             editProduct(it);
             setEditMode(false);
