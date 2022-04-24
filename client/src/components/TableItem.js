@@ -1,41 +1,17 @@
-import { useState } from "react";
+import { connect } from "react-redux";
+import * as actions from "../actions";
 
-const TableItem = ({ item, cols }) => {
-  const [isEditing, setEditing] = useState(false);
-  const [it, sit] = useState(item);
+const TableItem = ({ item, cols, setEditMode }) => {
   const extraFields = () => (
     <td key="btn1">
-      <button onClick={() => setEditing(!isEditing)}>
-        {isEditing ? "Save" : "Edit"}
-      </button>
+      <button onClick={() => setEditMode(true, { item, cols })}>Edit</button>
     </td>
   );
 
-  if (isEditing) {
-    return [
-      Object.keys(cols).map((field, index) => (
-        <td key={index} style={{ width: "20%" }}>
-          <input
-            type="text"
-            value={it[field]}
-            onChange={(event) => {
-              sit(() => {
-                const t = { ...it };
-                t[field] = event.target.value;
-                return t;
-              });
-            }}
-          />
-        </td>
-      )),
-      extraFields(),
-    ];
-  }
-
   return [
-    Object.keys(cols).map((field, index) => <td key={index}>{it[field]}</td>),
+    Object.keys(cols).map((field, index) => <td key={index}>{item[field]}</td>),
     extraFields(),
   ];
 };
 
-export default TableItem;
+export default connect(null, actions)(TableItem);
