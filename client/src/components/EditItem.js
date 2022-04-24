@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-const EditItem = ({ context }) => {
+
+import { editProduct, setEditMode } from "../actions";
+const EditItem = ({ context, editProduct, setEditMode }) => {
   const { item, cols } = context;
   const [it, sit] = useState(item);
 
@@ -10,7 +12,7 @@ const EditItem = ({ context }) => {
         {Object.keys(cols).map((field, index) => (
           <div className="input-field col s6" key={index}>
             <div>
-              <label for="name">{cols[field]}</label>
+              <label htmlFor="name">{cols[field]}</label>
             </div>
             <input
               type="text"
@@ -25,7 +27,14 @@ const EditItem = ({ context }) => {
             />
           </div>
         ))}
-        <button onClick={() => 1}>Save</button>
+        <button
+          onClick={() => {
+            editProduct(it);
+            setEditMode(false);
+          }}
+        >
+          Save
+        </button>
       </div>
     </div>
   );
@@ -37,4 +46,4 @@ const mapStateToProps = ({ products }) => {
   } = products;
   return { context };
 };
-export default connect(mapStateToProps)(EditItem);
+export default connect(mapStateToProps, { editProduct, setEditMode })(EditItem);

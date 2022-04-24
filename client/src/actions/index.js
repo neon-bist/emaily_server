@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_PRODUCTS, FETCH_USER, IS_EDITING } from "./types";
+import { FETCH_PRODUCTS, FETCH_USER, IS_EDITING, EDIT_PRODUCT } from "./types";
 
 export const fetchUser = () => async (dispatch) => {
   const { data } = await axios.get("/api/current_user");
@@ -19,5 +19,12 @@ export const setEditMode = (isEditing, context = {}) => {
   return {
     type: IS_EDITING,
     payload: { state: isEditing, context },
+  };
+};
+
+export const editProduct = (item) => {
+  return {
+    type: EDIT_PRODUCT,
+    payload: { item },
   };
 };
