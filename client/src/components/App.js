@@ -5,8 +5,9 @@ import { connect } from "react-redux";
 
 import Header from "./Header";
 import Landing from "./Landing";
+import Products from "./Products";
 
-const Dashboard = () => <h2>Dashboard</h2>;
+const Dashboard = () => <Products />;
 const SurveyNew = () => <h2>SurveyNew</h2>;
 const PageNotFound = () => <h2>Page Not Found 404</h2>;
 
