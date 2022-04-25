@@ -42,4 +42,16 @@ app
     res.status(201).json(product);
   });
 
+app.post("/product", requireLogin, async (req, res) => {
+  const { product_code, name, price, stock } = req.body;
+  const product = await new Product({
+    createdBy: req.user.id,
+    product_code,
+    name,
+    price,
+    stock,
+  }).save();
+
+  res.status(201).json(product);
+});
 module.exports = app;
