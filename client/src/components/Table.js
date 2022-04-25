@@ -11,6 +11,7 @@ const Table = (props) => {
           {Object.keys(cols).map((field, index) => (
             <th key={index}>{cols[field]}</th>
           ))}
+          {props.hasActions && <th> Actions</th>}
         </tr>
       </thead>
       <tbody>

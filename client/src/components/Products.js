@@ -1,28 +1,38 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import Table from "./Table";
 import * as actions from "../actions";
 import EditItem from "./EditItem";
+import AddProduct from "./AddProduct";
 
 const Products = (props) => {
   const rows = props.products;
-  console.log("row", rows);
+  const cols = {
+    name: "Name",
+    stock: "Stock",
+    price: "Price",
+    product_code: "Code",
+  };
+  const [isAdding, setAddingMode] = useState(false);
+  console.log(rows);
   useEffect(() => {
-    props.fetchProducts();
-  }, []);
+    !isAdding && props.fetchProducts();
+  }, [isAdding]);
   if (!rows) return;
   return (
     <div>
+      <Table cols={cols} rows={rows} hasActions />
+      <div style={{ position: "relative" }}>
+        <button
+          className="btn waves-effect waves-light"
+          style={{ width: "100%" }}
+          onClick={setAddingMode}
+        >
+          Add
+        </button>
+      </div>
       {props.isEditing?.state && <EditItem />}
-      <Table
-        cols={{
-          name: "Name",
-          stock: "Stock",
-          price: "Price",
-          product_code: "Code",
-        }}
-        rows={rows}
-      />
+      {isAdding && <AddProduct setAddingMode={setAddingMode} cols={cols} />}
     </div>
   );
 };

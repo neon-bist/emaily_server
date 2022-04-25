@@ -6,6 +6,7 @@
   height: 100vh;display: flex;
   background-color: rgba(0,0,0,0.6);align-items: center;
   justify-content: center;
+  z-index: 1  ;
 }
 
 .edit-box{
